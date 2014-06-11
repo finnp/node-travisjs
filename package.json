@@ -1,5 +1,5 @@
 {
-  "name": "travis-init",
+  "name": "travisjs",
   "version": "0.0.0",
   "description": "trafisify but without saving github credentials",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/finnp/node-travis-init.git"
+    "url": "https://github.com/finnp/node-travisjs.git"
   },
   "keywords": [
     "travisify",
@@ -17,9 +17,9 @@
   "author": "Finn Pauls",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/finnp/node-travis-init/issues"
+    "url": "https://github.com/finnp/node-travisjs/issues"
   },
-  "homepage": "https://github.com/finnp/node-travis-init",
+  "homepage": "https://github.com/finnp/node-travisjs",
   "dependencies": {
     "ghauthprompt": "git://github.com/finnp/ghauthprompt",
     "request": "^2.36.0",

@@ -4,7 +4,7 @@ var Configstore = require('configstore');
 var ghslug = require('github-slug');
 
 var travisUrl = 'https://api.travis-ci.org';
-var userAgent = 'travis-init.js29';
+var userAgent = 'travis-init.js';
 
 var authOpts = {
   scopes: [
