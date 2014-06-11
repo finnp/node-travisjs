@@ -1,9 +1,7 @@
 var ghauth = require('ghauthprompt');
 var request = require('request');
 var Configstore = require('configstore');
-var originUrl = require('git-remote-origin-url');
-var urlFromGit = require('github-url-from-git');
-var urlParse = require('url').parse;
+var ghslug = require('github-slug');
 
 var travisUrl = 'https://api.travis-ci.org';
 var userAgent = 'travis-init.js29';
@@ -20,12 +18,42 @@ var authOpts = {
   note: userAgent
 }
 
+var travisHeaders = {
+  'User-Agent': userAgent,
+  'Accept': 'application/vnd.travis-ci.2+json'
+};
+
 getToken(function (token) {
+  travisHeaders.Authorization = 'token ' + token;
   // get slug
-  originUrl('./', function (err, url) {
+  ghslug('./', function (err, slug) {
     if(err) return console.error(err);
-      var url = urlFromGit(url);
-      console.log(urlParse(url).path.slice(1));
+      console.log('Activating hook for ' + slug + '...');
+      var req = {};
+      req.url = travisUrl  + '/repos/' + slug;
+      req.headers = travisHeaders;
+      // get id for the repo
+      request.get(req, function (err, response, data) {
+        if(err) return console.error(err);
+        var hookId = JSON.parse(data).repo.id;
+        // turn on the hook
+        var req = {};
+        req.url = travisUrl + '/hooks';
+        req.headers = travisHeaders;
+        req.json = {
+          hook: {
+            id: hookId,
+            active: true
+          }
+        }
+        request.put(req, function (err, response, data) {
+          if(err) return console.error(err);
+          if(response.statusCode !== 200)
+            return console.error('Error' + response.statusCode);
+          console.log('Activated hook for ' + slug);
+        });
+      });
+      
   });
 });
 
@@ -39,10 +67,7 @@ function getToken(cb) {
       if(err) return console.error(err);
       var req = {};
       req.url = travisUrl + '/auth/github';
-      req.headers = {
-        'User-Agent': userAgent,
-        'Accept': 'application/vnd.travis-ci.2+json'
-      };
+      req.headers = travisHeaders;
       req.json = { 'github_token': authData.token };
       req.method = 'POST';
       req.encoding = 'utf8'
