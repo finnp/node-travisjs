@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var ghauth = require('ghauthprompt');
+var ghauth = require('ghauth');
 var request = require('request');
 var Configstore = require('configstore');
 var ghslug = require('github-slug');
@@ -63,7 +63,8 @@ function getToken(cb) {
       "write:repo_hook"
     ],
     userAgent: userAgent,
-    note: userAgent
+    note: userAgent,
+    noSave: true
   }
   
   var config = new Configstore('travis-init');
