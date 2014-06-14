@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 var ghauth = require('ghauth');
 var request = require('request');
 var Configstore = require('configstore');
@@ -15,7 +14,7 @@ var travisHeaders = {
   'Accept': 'application/vnd.travis-ci.2+json'
 };
 
-function activateHook() {
+exports.hook = function () {
   getToken(function (token) {
     travisHeaders.Authorization = 'token ' + token;
     // get slug
@@ -53,6 +52,32 @@ function activateHook() {
   });  
 }
 
+exports.badge = function () {
+  ghslug('./', function (err, slug) {
+    console.log('[![Build Status](https://travis-ci.org/' + slug 
+      + '.svg?branch=master)](https://travis-ci.org/' + slug + ')'
+    );
+  });
+}
+
+exports.yml = function () {
+  var opts = {
+    language: 'node_js',
+    node_js: ['0.10', '0.8']
+  }
+  var yml = yaml.stringify(opts, 10);
+  console.log('Writing .travis.yml:');
+  console.log(yml);
+  fs.writeFileSync('./.travis.yml', yml);
+}
+
+exports.status = function () {
+  // TODO: Other branches
+  ghslug('./', function (err, slug) {
+    slug = slug.split('/');
+    gittravis.print(slug[0], slug[1], 'master');
+  });
+}
 
 function getToken(cb) {
   var authOpts = {
@@ -94,75 +119,3 @@ function getToken(cb) {
     });  
   }
 }
-
-function generateBadge() {
-  ghslug('./', function (err, slug) {
-    console.log('[![Build Status](https://travis-ci.org/' + slug 
-      + '.svg?branch=master)](https://travis-ci.org/' + slug + ')'
-    );
-  });
-}
-
-function createYML() {
-  var opts = {
-    language: 'node_js',
-    node_js: ['0.10', '0.8']
-  }
-  var yml = yaml.stringify(opts, 10);
-  console.log('Writing .travis.yml:');
-  console.log(yml);
-  fs.writeFileSync('./.travis.yml', yml);
-}
-
-function showStatus() {
-  // TODO: Other branches
-  ghslug('./', function (err, slug) {
-    slug = slug.split('/');
-    gittravis.print(slug[0], slug[1], 'master');
-  });
-}
-
-// CLI parser
-
-var parser = require('nomnom')
-  .script('travisjs')
-  ;
-  
-parser.command('init')
-  .help('initialize travis (hook and yml)')
-  .callback(function (opts) {
-      createYML();
-      // git add and commit ?
-      activateHook();
-  })
-  ;
-  
-parser.command('badge')
-  .help('generate badge')
-  .callback(function (opts) {
-    generateBadge();
-  })
-  ;
-  
-parser.command('yml')
-  .help('creates a .travis.yml')
-  .callback(function (opts) {
-    createYML();
-  })
-  ;
-
-parser.command('hook')
-  .help('activate hook for this repo')
-  .callback(function (opts) {
-    activateHook();
-  })
-
-parser.command('status')
-  .help('shows the status of the tests')
-  .callback(function (opts) {
-    showStatus();
-  })
-  ;
-  
-
-parser.parse();
