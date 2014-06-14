@@ -4,6 +4,7 @@ var request = require('request');
 var Configstore = require('configstore');
 var ghslug = require('github-slug');
 var yaml = require('yamljs');
+var gittravis = require('git-travis');
 var fs = require('fs');
 
 var travisUrl = 'https://api.travis-ci.org';
@@ -113,6 +114,14 @@ function createYML() {
   fs.writeFileSync('./.travis.yml', yml);
 }
 
+function showStatus() {
+  // TODO: Other branches
+  ghslug('./', function (err, slug) {
+    slug = slug.split('/');
+    gittravis.print(slug[0], slug[1], 'master');
+  });
+}
+
 // CLI parser
 
 var parser = require('nomnom')
@@ -131,21 +140,27 @@ parser.command('init')
 parser.command('badge')
   .help('generate badge')
   .callback(function (opts) {
-      generateBadge();
+    generateBadge();
   })
   ;
   
 parser.command('yml')
   .help('creates a .travis.yml')
   .callback(function (opts) {
-      createYML();
+    createYML();
   })
   ;
 
 parser.command('hook')
   .help('activate hook for this repo')
   .callback(function (opts) {
-      activateHook();
+    activateHook();
+  })
+
+parser.command('status')
+  .help('shows the status of the tests')
+  .callback(function (opts) {
+    showStatus();
   })
   ;
   
