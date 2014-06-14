@@ -10,7 +10,7 @@ program.command('init')
   .callback(function (opts) {
       travisjs.yml();
       // TODO: git add and commit, maybe
-      travisjs.hook();
+      travisjs.hook(true);
   })
   ;
   
@@ -29,9 +29,14 @@ program.command('yml')
   ;
 
 program.command('hook')
-  .help('activate hook for this repo')
+  .help('set up hook for this repo')
+  .option('deactivate', {
+    abbr: 'd',
+    flag: true,
+    help: 'deactivate hook'
+  })
   .callback(function (opts) {
-    travisjs.hook();
+    travisjs.hook(!opts.deactivate);
   })
 
 program.command('status')

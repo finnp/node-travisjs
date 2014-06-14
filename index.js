@@ -14,13 +14,14 @@ var travisHeaders = {
   'Accept': 'application/vnd.travis-ci.2+json'
 };
 
-exports.hook = function () {
+exports.hook = function (active) {
   getToken(function (token) {
     travisHeaders.Authorization = 'token ' + token;
     // get slug
     ghslug('./', function (err, slug) {
       if(err) return console.error(err);
-        console.log('Activating hook for ' + slug + '...');
+        var activeStr = active ? 'A' : 'Dea';
+        console.log(activeStr + 'ctivating hook for ' + slug + '...');
         var req = {};
         req.url = travisUrl  + '/repos/' + slug;
         req.headers = travisHeaders;
@@ -37,14 +38,14 @@ exports.hook = function () {
           req.json = {
             hook: {
               id: hookId,
-              active: true
+              active: active
             }
           }
           request.put(req, function (err, response, data) {
             if(err) return console.error(err);
             if(response.statusCode !== 200)
               return console.error('Error' + response.statusCode);
-            console.log('Activated hook for ' + slug);
+            console.log(activeStr + 'ctivated hook for ' + slug);
           });
         });
         
