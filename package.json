@@ -1,6 +1,6 @@
 {
   "name": "travisjs",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "trafisify but without saving github credentials",
   "bin": {
     "travisjs": "./bin/travisjs.js"
