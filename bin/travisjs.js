@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-var travisjs = require('../index.js');
+var Travis = require('../lib/index.js');
+var Configstore = require('configstore');
+
+var travisjs = new Travis(new Configstore('travisjs'));
 
 var program = require('nomnom')
   .script('travisjs')
