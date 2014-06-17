@@ -24,6 +24,13 @@ program.command('badge')
   })
   ;
   
+program.command('open')
+  .help('open travis page')
+  .callback(function (opts) {
+    travisjs.open();
+  })
+  ;
+  
 program.command('yml')
   .help('creates a .travis.yml')
   .callback(function (opts) {

@@ -28,6 +28,7 @@
     "git-travis": "^0.1.10",
     "github-slug": "0.0.0",
     "nomnom": "^1.7.0",
+    "open": "0.0.5",
     "request": "^2.36.0",
     "yamljs": "^0.1.5"
   },
