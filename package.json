@@ -1,7 +1,7 @@
 {
   "name": "travisjs",
   "version": "0.1.0",
-  "description": "trafisify but without saving github credentials",
+  "description": "travis cli helper for managing node modules",
   "bin": {
     "travisjs": "./bin/travisjs.js"
   },
@@ -14,7 +14,8 @@
   },
   "keywords": [
     "travisify",
-    "travis"
+    "travis",
+    "cli"
   ],
   "author": "Finn Pauls",
   "license": "MIT",
@@ -33,7 +34,6 @@
     "yamljs": "^0.1.5"
   },
   "devDependencies": {
-    "getter-setter": "^0.2.1",
     "nock": "^0.34.1",
     "tape": "^2.13.3"
   }
