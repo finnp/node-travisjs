@@ -51,7 +51,10 @@ test('hook', function (t) {
       .reply(200, {repo: {id: 7}})
       
       .put('/hooks')
-      .reply(200) 
+      .reply(200)
+      
+      .post('/users/sync')
+      .reply(200, {result: true})
       ;
       
     // turning on of travis hook
@@ -79,6 +82,9 @@ test('hook', function (t) {
       
       .put('/hooks')
       .reply(200) 
+      
+      .post('/users/sync')
+      .reply(200, {result: true})
       ;
     
     travisjs.hook(true);
