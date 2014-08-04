@@ -55,6 +55,12 @@ test('hook', function (t) {
       
       .post('/users/sync')
       .reply(200, {result: true})
+      
+      .get('/users')
+      .reply(200, {user: {is_syncing: true}})
+      
+      .get('/users')
+      .reply(200, {user: {is_syncing: false}})
       ;
       
     // turning on of travis hook
@@ -85,6 +91,9 @@ test('hook', function (t) {
       
       .post('/users/sync')
       .reply(200, {result: true})
+      
+      .get('/users')
+      .reply(200, {user: {is_syncing: false}})
       ;
     
     travisjs.hook(true);
