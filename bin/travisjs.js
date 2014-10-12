@@ -2,7 +2,8 @@
 var Travis = require('../lib/index.js');
 var Configstore = require('configstore');
 
-var travisjs = new Travis(new Configstore('travisjs'));
+var store = new Configstore('travisjs')
+var travisjs = new Travis(store);
 
 var program = require('nomnom')
   .script('travisjs')
@@ -45,8 +46,13 @@ program.command('hook')
     flag: true,
     help: 'deactivate hook'
   })
+  .option('skipsync', {
+    abbr: 's',
+    flag: true,
+    help: 'skip the syncing'
+  })
   .callback(function (opts) {
-    travisjs.hook(!opts.deactivate);
+    travisjs.hook(opts);
   })
 
 program.command('status')
@@ -54,6 +60,11 @@ program.command('status')
   .callback(function (opts) {
     travisjs.status();
   })
-  ;
+  
+program.command('config')
+  .help('shows the location of the config file')
+  .callback(function () {
+    console.log(store.path)
+  })
   
 program.parse();

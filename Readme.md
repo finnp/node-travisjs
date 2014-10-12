@@ -20,4 +20,5 @@ command
   yml        creates a .travis.yml
   hook       set up hook for this repo
   status     shows the status of the tests
+  config     shows the location of the config file
 ```
