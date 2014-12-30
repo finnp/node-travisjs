@@ -27,7 +27,7 @@
     "configstore": "^0.3.1",
     "ghauth": "^0.3.0",
     "git-travis": "^0.1.10",
-    "github-slug": "0.0.0",
+    "github-slug": "0.0.2",
     "nomnom": "^1.7.0",
     "open": "0.0.5",
     "request": "^2.36.0",
