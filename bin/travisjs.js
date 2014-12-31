@@ -70,7 +70,7 @@ program.command('config')
 
 program.command('lint')
     .help('validate your .travis.yml')
-    .callback(function (opts) {
+    .callback(function () {
       travisjs.lint();
     })
 
