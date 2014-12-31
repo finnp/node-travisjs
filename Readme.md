@@ -21,4 +21,5 @@ command
   hook       set up hook for this repo
   status     shows the status of the tests
   config     shows the location of the config file
+  lint       validate your .travis.yml
 ```
