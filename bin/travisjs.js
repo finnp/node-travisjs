@@ -66,5 +66,12 @@ program.command('config')
   .callback(function () {
     console.log(store.path)
   })
-  
+
+
+program.command('lint')
+    .help('validate your .travis.yml')
+    .callback(function () {
+      travisjs.lint();
+    })
+
 program.parse();
