@@ -9,6 +9,13 @@ var program = require('nomnom')
   .script('travisjs')
   ;
   
+program.command('version')
+  .help('display the current version')
+  .callback(function () {
+      return require('../package').version;
+  })
+  ;
+
 program.command('init')
   .help('initialize travis (hook and yml)')
   .callback(function (opts) {
