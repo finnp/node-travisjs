@@ -14,6 +14,7 @@ Install with `npm install travisjs -g`
 Usage: travisjs <command>
 
 command
+  version    display the current version
   init       initialize travis (hook and yml)
   badge      generate badge
   open       open travis page
