@@ -12,7 +12,7 @@ var program = require('nomnom')
 program.command('version')
   .help('display the current version')
   .callback(function () {
-      return require('../package').version;
+      console.log(require('../package').version);
   })
   ;
 
