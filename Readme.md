@@ -24,3 +24,24 @@ command
   config     shows the location of the config file
   lint       validate your .travis.yml
 ```
+
+## config file
+
+Travisjs config file location can be shown with `travisjs config`.
+
+It can have a couple of properties:
+
+| Property | Description
+| :------: | :----------
+| token    | Access token — you don't want to touch this.
+| node_js  | Node.js versions to include in generated .travis.yml file.
+
+Example config file:
+
+```
+token: xxx
+node_js:
+  - '0.10'
+  - '0.12'
+  - iojs
+```
