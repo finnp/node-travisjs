@@ -1,6 +1,6 @@
 {
   "name": "travisjs",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "travis cli helper for managing node modules",
   "bin": {
     "travisjs": "./bin/travisjs.js"
