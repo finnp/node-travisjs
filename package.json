@@ -6,7 +6,8 @@
     "travisjs": "./bin/travisjs.js"
   },
   "scripts": {
-    "test": "node ./test/travisjs.js"
+    "test": "node ./test/travisjs.js",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "nock": "^0.34.1",
+    "standard": "^8.6.0",
     "tape": "^2.13.3"
   }
 }

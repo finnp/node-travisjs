@@ -1,50 +1,44 @@
 #!/usr/bin/env node
-var Travis = require('../lib/index.js');
-var Configstore = require('configstore');
+var Travis = require('../lib/index.js')
+var Configstore = require('configstore')
 
 var store = new Configstore('travisjs')
-var travisjs = new Travis(store);
+var travisjs = new Travis(store)
 
 var program = require('nomnom')
   .script('travisjs')
-  ;
-  
+
 program.command('version')
   .help('display the current version')
   .callback(function () {
-      console.log(require('../package').version);
+    console.log(require('../package').version)
   })
-  ;
 
 program.command('init')
   .help('initialize travis (hook and yml)')
   .callback(function (opts) {
-      travisjs.yml();
+    travisjs.yml()
       // TODO: git add and commit, maybe
-      travisjs.hook(true);
+    travisjs.hook(true)
   })
-  ;
-  
+
 program.command('badge')
   .help('generate badge')
   .callback(function (opts) {
-    travisjs.badge();
+    travisjs.badge()
   })
-  ;
-  
+
 program.command('open')
   .help('open travis page')
   .callback(function (opts) {
-    travisjs.open();
+    travisjs.open()
   })
-  ;
-  
+
 program.command('yml')
   .help('creates a .travis.yml')
   .callback(function (opts) {
-    travisjs.yml();
+    travisjs.yml()
   })
-  ;
 
 program.command('hook')
   .help('set up hook for this repo')
@@ -59,26 +53,25 @@ program.command('hook')
     help: 'skip the syncing'
   })
   .callback(function (opts) {
-    travisjs.hook(opts);
+    travisjs.hook(opts)
   })
 
 program.command('status')
   .help('shows the status of the tests')
   .callback(function (opts) {
-    travisjs.status();
+    travisjs.status()
   })
-  
+
 program.command('config')
   .help('shows the location of the config file')
   .callback(function () {
     console.log(store.path)
   })
 
-
 program.command('lint')
     .help('validate your .travis.yml')
     .callback(function () {
-      travisjs.lint();
+      travisjs.lint()
     })
 
-program.parse();
+program.parse()

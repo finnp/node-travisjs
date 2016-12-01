@@ -4,8 +4,10 @@ Mac / Linux | Windows
 ----------  | ---------
 [![Build Status](https://travis-ci.org/finnp/node-travisjs.svg?branch=master)](https://travis-ci.org/finnp/node-travisjs) | [![Windows Build status](http://img.shields.io/appveyor/ci/finnp/node-travisjs.svg)](https://ci.appveyor.com/project/finnp/node-travisjs/branch/master)
 
-Travisjs is a command line application for travis, especially targeted 
-for managing tests for  node modules. It is inspired by `travisify` and `git-travis` 
+[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+Travisjs is a command line application for travis, especially targeted
+for managing tests for  node modules. It is inspired by `travisify` and `git-travis`
 (which is uses internally).
 
 Install with `npm install travisjs -g`
